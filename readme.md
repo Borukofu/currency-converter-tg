@@ -47,10 +47,10 @@ This is a simple Telegram bot that allows you to:
     *   **Check Symbol Information:**  Send a three-letter currency symbol (e.g., "USD", "EUR", "GBP"). The bot will return the description of that currency if it's found in the symbols list.
     *   **Convert Currency:** Send a message in the format: <amount> <from_currency> <to_currency> [<to_currency2> ...].  For example:  "10 USD EUR GBP".  This will convert 10 USD to EUR and GBP using the latest exchange rates.
 
-    **Example Interactions:**
+**Example Interactions:**
 
     
-User: /start
+    User: /start
     Bot: Hello, [Your Name]!
 
     User: /rates
