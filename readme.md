@@ -72,16 +72,7 @@ This is a simple Telegram bot that allows you to:
 
     User: 10 USD EUR
     Bot: 10 USD --> EUR 9.4853
-## Project Structure
 
-    ├── .env              # Environment variables (API keys tokens)
-    ├── index.ts          # Main application file (Telegram bot logic)
-    ├── Data.ts           # Class for handling API requests and data storage
-    ├── package.json      # Project dependencies and scripts
-    ├── package-lock.json # Dependency lockfile
-    ├── README.md         # This file
-    ├── rates.json        # Cached exchange rates(automatically created)
-    └── symbols.json      # Cached currency symbols (automatically created)
 ## Dependencies
 
 *   `node-telegram-bot-api`:  For interacting with the Telegram Bot API.
