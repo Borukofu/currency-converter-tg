@@ -1,4 +1,3 @@
-ChatGPT4 | Midjourney, [15.04.2025 20:42]
 # Telegram Currency Converter Bot
 
 This is a simple Telegram bot that allows you to:
@@ -17,30 +16,24 @@ This is a simple Telegram bot that allows you to:
 ## Installation
 
 1.  Clone the repository:
-
-    
-bash
-    git clone <repository_url>
-    cd <repository_name>
+   
+    `git clone <repository_url>`
+    `cd <repository_name>`
 2.  Install the dependencies:
-
-    
-bash
-    npm install  # or yarn install
+   
+    `npm install  # or yarn install`
 3.  Create a .env file in the root of the project and add your Telegram bot token and Fixer.io API key:
-
-    
-tokenTg=<your_telegram_bot_token>
-    apiKey=<your_fixer_api_key>
-    **Important:**  Never commit your .env file to a public repository.
+   
+    `tokenTg=<your_telegram_bot_token>`
+    `apiKey=<your_fixer_api_key>`
+   
+        **Important:**  Never commit your .env file to a public repository.
 
 ## Usage
 
 1.  Run the bot:
-
-    
-bash
-    npm start  # or yarn start
+   
+    `npm start  # or yarn start`
 2.  Open Telegram and start a conversation with your bot.
 
 3.  Use the following commands:
@@ -81,20 +74,18 @@ User: /start
     Bot: 10 USD --> EUR 9.4853
 ## Project Structure
 
-
-.
-├── .env              # Environment variables (API keys, tokens)
-├── index.ts          # Main application file (Telegram bot logic)
-├── Data.ts           # Class for handling API requests and data storage
-├── package.json      # Project dependencies and scripts
-├── package-lock.json # Dependency lockfile
-├── README.md         # This file
-├── rates.json        # Cached exchange rates (automatically created)
-└── symbols.json      # Cached currency symbols (automatically created)
+    ├── .env              # Environment variables (API keys tokens)
+    ├── index.ts          # Main application file (Telegram bot logic)
+    ├── Data.ts           # Class for handling API requests and data storage
+    ├── package.json      # Project dependencies and scripts
+    ├── package-lock.json # Dependency lockfile
+    ├── README.md         # This file
+    ├── rates.json        # Cached exchange rates(automatically created)
+    └── symbols.json      # Cached currency symbols (automatically created)
 ## Dependencies
 
-*   node-telegram-bot-api:  For interacting with the Telegram Bot API.
-*   dotenv: For loading environment variables from a .env file.
+*   `node-telegram-bot-api`:  For interacting with the Telegram Bot API.
+*   `dotenv`: For loading environment variables from a .env file.
 
 ## Error Handling
 
@@ -106,15 +97,6 @@ The bot includes basic error handling:
 
 ## Future Enhancements
 
-*   Add support for more currencies.
-*   Implement a command to manually refresh the exchange rates.
-*   Improve error handling and logging.
-*   Add unit tests.
 *   Implement a more sophisticated currency parsing logic.
 *   Allow users to specify the base currency for the /rates command.
-*   Use a database instead of JSON files for data storage.
-*   Implement more robust error handling for invalid user inputs.
 
-## Contributing
-
-Contributions are welcome! Please feel free to submit pull requests or open issues.
