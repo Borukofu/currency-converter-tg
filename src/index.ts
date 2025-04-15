@@ -46,14 +46,15 @@ bot.onText(RegExp("/symbols"),msg=>{
 bot.on("message",msg=>{
     let matchs1 = msg.text?.match(/\b\w\w\w\b/g)
   
-    let matchs2 = msg.text?.match(/\b\d{1,20}\b\s{1,}\b\w\w\w\b(\s{1,}\b\w\w\w\b){1,}/g)
+
+    let matchs2 = msg.text?.match(/\b\d{1,20}\b\s{1,}(?!\d)\b\w{3}\b(\s{1,}(?!\d)\b\w{3}\b){1,}/g)
     
     let text:string = "";
     if (matchs2!=null){
         for(let match of matchs2){
             let rate = {
                 value: match.match(/\d{1,20}/)?.toString() || "",
-                rates:match.match(/\b\w\w\w\b/g) || []
+                rates:match.match(/(?!\d)\b\w{3}\b/g) || []
             }  
             let text = base.convert(rate);
             bot.sendMessage(msg.chat.id,text);
