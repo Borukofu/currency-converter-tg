@@ -19,29 +19,32 @@ bot.onText(RegExp("/start"), msg => {
     bot.sendMessage(msg.chat.id, "Hello, " + msg.chat.first_name + "!");
 });
 bot.onText(RegExp("/rates"), msg => {
-    let text = `1 ${base._rates?.base} it\n`;
-    for (const key in base._rates?.rates) {
+    var _a, _b, _c;
+    let text = `1 ${(_a = base._rates) === null || _a === void 0 ? void 0 : _a.base} it\n`;
+    for (const key in (_b = base._rates) === null || _b === void 0 ? void 0 : _b.rates) {
         text += `${key} : ${base._rates.rates[key]} \n`;
     }
-    bot.sendMessage(msg.chat.id, `current (${base._rates?.date}) exchange rates`);
+    bot.sendMessage(msg.chat.id, `current (${(_c = base._rates) === null || _c === void 0 ? void 0 : _c.date}) exchange rates`);
     bot.sendMessage(msg.chat.id, text);
 });
 bot.onText(RegExp("/symbols"), msg => {
+    var _a, _b;
     let text = "";
-    for (const key in base._symbols?.symbols) {
-        text += `${key} : ${base._symbols?.symbols[key]} \n`;
+    for (const key in (_a = base._symbols) === null || _a === void 0 ? void 0 : _a.symbols) {
+        text += `${key} : ${(_b = base._symbols) === null || _b === void 0 ? void 0 : _b.symbols[key]} \n`;
     }
     bot.sendMessage(msg.chat.id, `current exchange symbols`);
     bot.sendMessage(msg.chat.id, text);
 });
 bot.on("message", msg => {
-    let matchs1 = msg.text?.match(/\b\w\w\w\b/g);
-    let matchs2 = msg.text?.match(/\b\d{1,20}\b\s{1,}(?!\d)\b\w{3}\b(\s{1,}(?!\d)\b\w{3}\b){1,}/g);
+    var _a, _b, _c;
+    let matchs1 = (_a = msg.text) === null || _a === void 0 ? void 0 : _a.match(/\b\w\w\w\b/g);
+    let matchs2 = (_b = msg.text) === null || _b === void 0 ? void 0 : _b.match(/\b\d{1,20}\b\s{1,}(?!\d)\b\w{3}\b(\s{1,}(?!\d)\b\w{3}\b){1,}/g);
     let text = "";
     if (matchs2 != null) {
         for (let match of matchs2) {
             let rate = {
-                value: match.match(/\d{1,20}/)?.toString() || "",
+                value: ((_c = match.match(/\d{1,20}/)) === null || _c === void 0 ? void 0 : _c.toString()) || "",
                 rates: match.match(/(?!\d)\b\w{3}\b/g) || []
             };
             let text = base.convert(rate);

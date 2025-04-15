@@ -6,16 +6,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Base = void 0;
 const fs_1 = __importDefault(require("fs"));
 class Base {
-    symbols;
-    rates;
-    apiToken;
-    date;
     _setShedule() {
         setInterval(() => {
+            var _a, _b;
             let nowDate = new Date();
-            let ratesDate = this.rates?.date || "";
+            let ratesDate = ((_a = this.rates) === null || _a === void 0 ? void 0 : _a.date) || "";
             if (ratesDate != nowDate.toISOString().split("T")[0]) {
-                console.log(this.rates?.date, nowDate.toISOString().split("T")[0]);
+                console.log((_b = this.rates) === null || _b === void 0 ? void 0 : _b.date, nowDate.toISOString().split("T")[0]);
                 this.reloadRates();
             }
         }, 60000);
@@ -128,7 +125,8 @@ class Base {
     }
     ;
     isSymbols(Symbol) {
-        for (const key in this.symbols?.symbols) {
+        var _a;
+        for (const key in (_a = this.symbols) === null || _a === void 0 ? void 0 : _a.symbols) {
             if (Symbol.toLowerCase() === key.toLowerCase()) {
                 return {
                     key: key,
@@ -140,8 +138,9 @@ class Base {
     }
     ;
     _value(Symbol) {
+        var _a;
         if (this.isSymbols(Symbol) != null) {
-            for (const key in this.rates?.rates) {
+            for (const key in (_a = this.rates) === null || _a === void 0 ? void 0 : _a.rates) {
                 if (Symbol.toUpperCase() === key) {
                     return this.rates.rates[key];
                 }
