@@ -5,7 +5,7 @@ interface Rates {
     success:   boolean;
     timestamp: number;
     base:      string;
-    date:      Date;
+    date:      string;
     rates:     { [key: string]: number };
 }
 interface Symbols {
@@ -25,16 +25,18 @@ export class Base{
     _setShedule():void{
         setInterval(()=>{
             let nowDate:Date = new Date();
-            if(this.date.getDate()!=nowDate.getDate()){
-                this.date = nowDate;
+            let ratesDate =this.rates?.date || "";
+            if(ratesDate!=nowDate.toISOString().split("T")[0]){
+                console.log(this.rates?.date,nowDate.toISOString().split("T")[0]);
                 this.reloadRates()
+                
             }
+                
         },60000)
     };
     constructor(apiToken:string){
         this.apiToken = apiToken;
         this.date = new Date();
-        this._setShedule()
         // ################## rates
         if(!FS.existsSync(__dirname+"/rates.json")){
             console.log("no rates file created new and get rates from api token!");
@@ -82,6 +84,7 @@ export class Base{
             let buff = FS.readFileSync(__dirname+"/symbols.json");
             this.symbols = JSON.parse(buff.toString());
         };
+        this._setShedule()
     };
     reloadAll():void{
         this.reloadRates();

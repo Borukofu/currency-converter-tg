@@ -13,8 +13,9 @@ class Base {
     _setShedule() {
         setInterval(() => {
             let nowDate = new Date();
-            if (this.date.getDate() != nowDate.getDate()) {
-                this.date = nowDate;
+            let ratesDate = this.rates?.date || "";
+            if (ratesDate != nowDate.toISOString().split("T")[0]) {
+                console.log(this.rates?.date, nowDate.toISOString().split("T")[0]);
                 this.reloadRates();
             }
         }, 60000);
@@ -23,7 +24,6 @@ class Base {
     constructor(apiToken) {
         this.apiToken = apiToken;
         this.date = new Date();
-        this._setShedule();
         // ################## rates
         if (!fs_1.default.existsSync(__dirname + "/rates.json")) {
             console.log("no rates file created new and get rates from api token!");
@@ -77,6 +77,7 @@ class Base {
             this.symbols = JSON.parse(buff.toString());
         }
         ;
+        this._setShedule();
     }
     ;
     reloadAll() {
