@@ -9,8 +9,21 @@ class Base {
     symbols;
     rates;
     apiToken;
+    date;
+    _setShedule() {
+        setInterval(() => {
+            let nowDate = new Date();
+            if (this.date.getDate() != nowDate.getDate()) {
+                this.date = nowDate;
+                this.reloadRates();
+            }
+        }, 60000);
+    }
+    ;
     constructor(apiToken) {
         this.apiToken = apiToken;
+        this.date = new Date();
+        this._setShedule();
         // ################## rates
         if (!fs_1.default.existsSync(__dirname + "/rates.json")) {
             console.log("no rates file created new and get rates from api token!");
@@ -113,6 +126,60 @@ class Base {
         });
     }
     ;
+    isSymbols(Symbol) {
+        for (const key in this.symbols?.symbols) {
+            if (Symbol.toLowerCase() === key.toLowerCase()) {
+                return {
+                    key: key,
+                    info: this.symbols.symbols[key]
+                };
+            }
+        }
+        return null;
+    }
+    ;
+    _value(Symbol) {
+        if (this.isSymbols(Symbol) != null) {
+            for (const key in this.rates?.rates) {
+                if (Symbol.toUpperCase() === key) {
+                    return this.rates.rates[key];
+                }
+            }
+        }
+        return NaN;
+    }
+    ;
+    convert(config) {
+        const value = config.value;
+        let ratesDirt = config.rates;
+        let rates = [];
+        let notAproveRates = [];
+        for (let rate of ratesDirt) {
+            if (this.isSymbols(rate) != null) {
+                rates.push(rate);
+            }
+            else {
+                notAproveRates.push(rate);
+            }
+        }
+        if (rates.length >= 2) {
+            let mainRate = rates[0];
+            let text = "";
+            for (let i = 1; i < rates.length; i++) {
+                let out = (this._value("EUR") / this._value(mainRate)) / (this._value("EUR") / this._value(rates[i])) * Number(value);
+                text += `${value} ${mainRate.toUpperCase()} --> ${rates[i].toUpperCase()} ${out}\n`;
+                // AUD/AOA = (EUR/AOA) / (EUR/AUD) = 1040.321339 / 1.778801 = 584.849203
+            }
+            if (notAproveRates.length != 0) {
+                text += `there are no such currencies and they were skipped: ${notAproveRates}`;
+            }
+            return text;
+        }
+        else {
+            let text = `there are no such currencies and they were skipped: ${notAproveRates}`;
+            return text;
+        }
+    }
     get _rates() {
         return this.rates;
     }
