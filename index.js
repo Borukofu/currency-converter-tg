@@ -7,6 +7,20 @@ const node_telegram_bot_api_1 = __importDefault(require("node-telegram-bot-api")
 const dotenv_1 = require("dotenv");
 const Data_1 = require("./Data");
 (0, dotenv_1.configDotenv)();
+const Commands = [
+    {
+        command: "start",
+        description: "Greets you."
+    },
+    {
+        command: "rates",
+        description: "Displays the current exchange rates (based on EUR)."
+    },
+    {
+        command: "symbols",
+        description: "Displays available currency symbols and their descriptions."
+    },
+];
 const tokenTg = process.env.tokenTg;
 const apiToken = process.env.apiKey;
 if (typeof (tokenTg) == "undefined" || typeof (apiToken) == "undefined") {
@@ -15,6 +29,7 @@ if (typeof (tokenTg) == "undefined" || typeof (apiToken) == "undefined") {
 }
 const base = new Data_1.Base(apiToken);
 const bot = new node_telegram_bot_api_1.default(tokenTg, { polling: true });
+bot.setMyCommands(Commands);
 bot.onText(RegExp("/start"), msg => {
     bot.sendMessage(msg.chat.id, "Hello, " + msg.chat.first_name + "!");
 });

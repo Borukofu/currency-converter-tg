@@ -3,7 +3,20 @@ import { configDotenv } from "dotenv";
 import { Base } from "./Data";
 configDotenv();
 
-
+const Commands = [
+    {
+        command:"start",
+        description:"Greets you."
+    },
+    {
+        command:"rates",
+        description:"Displays the current exchange rates (based on EUR)."
+    },
+    {
+        command:"symbols",
+        description:"Displays available currency symbols and their descriptions."
+    },
+];
 
 const tokenTg:string | undefined = process.env.tokenTg;
 const apiToken:string | undefined = process.env.apiKey;
@@ -18,6 +31,8 @@ if(typeof(tokenTg)=="undefined" || typeof(apiToken)=="undefined"){
 const base:Base = new Base(apiToken);
 
 const bot:TelegramBot = new TelegramBot(tokenTg,{polling:true});
+
+bot.setMyCommands(Commands);
 
 bot.onText(RegExp("/start"),msg=>{
     bot.sendMessage(msg.chat.id,"Hello, "+msg.chat.first_name+"!");
