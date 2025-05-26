@@ -50,31 +50,33 @@ class Base {
             this.rates = JSON.parse(buff.toString());
         }
         // #################################### symbols
-        if (!fs_1.default.existsSync(__dirname + "/symbols.json")) {
-            console.log("no symbols file created new and get symbols from api token!");
-            fetch(`https://data.fixer.io/api/symbols?access_key=${this.apiToken}`)
-                .then(r => {
-                r.json().then(v => {
-                    if (v.success) {
-                        console.log("create symbols file");
-                        this.symbols = v;
-                        fs_1.default.writeFileSync(__dirname + "/symbols.json", JSON.stringify(v));
-                    }
-                    ;
+        setTimeout(() => {
+            if (!fs_1.default.existsSync(__dirname + "/symbols.json")) {
+                console.log("no symbols file created new and get symbols from api token!");
+                fetch(`https://data.fixer.io/api/symbols?access_key=${this.apiToken}`)
+                    .then(r => {
+                    r.json().then(v => {
+                        if (v.success) {
+                            console.log("create symbols file");
+                            this.symbols = v;
+                            fs_1.default.writeFileSync(__dirname + "/symbols.json", JSON.stringify(v));
+                        }
+                        ;
+                    });
+                })
+                    .catch(er => {
+                    console.error(er);
+                    process.exit(1);
                 });
-            })
-                .catch(er => {
-                console.error(er);
-                process.exit(1);
-            });
-        }
-        else {
-            console.log("read file symbols");
-            let buff = fs_1.default.readFileSync(__dirname + "/symbols.json");
-            this.symbols = JSON.parse(buff.toString());
-        }
-        ;
-        this._setShedule();
+            }
+            else {
+                console.log("read file symbols");
+                let buff = fs_1.default.readFileSync(__dirname + "/symbols.json");
+                this.symbols = JSON.parse(buff.toString());
+            }
+            ;
+            this._setShedule();
+        }, 1000);
     }
     ;
     reloadAll() {
